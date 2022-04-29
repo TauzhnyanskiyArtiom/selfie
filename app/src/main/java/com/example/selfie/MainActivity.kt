@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
-import com.example.lab3.databinding.ActivityMainBinding
+import com.example.selfie.databinding.ActivityMainBinding
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
