@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
             if (imageFile != null) {
                 val imageURI = FileProvider.getUriForFile(
                     this,
-                    "com.example.android.fileprovider",
+                    "com.example.selfie.fileprovider",
                     imageFile)
                 photoURI = imageURI
 
