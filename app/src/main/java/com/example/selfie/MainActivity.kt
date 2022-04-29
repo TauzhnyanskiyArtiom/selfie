@@ -20,30 +20,32 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
     private lateinit var photoURI: Uri
-    private lateinit var cameraLauncher: ActivityResultLauncher<Uri>
+    private var cameraLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) {
+        if(it)
+            binding.photo.setImageURI(photoURI)
+        else
+            Toast.makeText(this, "Operation was canceled!", Toast.LENGTH_SHORT).show()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val photoBox = binding.photo
+        startApp()
 
-        // Using Activity Result API to start camera activity and handle result
-        cameraLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) {
-            when (it) {
-                true -> photoBox.setImageURI(photoURI)
-                false -> Toast.makeText(this, "Operation was canceled!", Toast.LENGTH_SHORT).show()
-            }
-        }
+    }
 
+    private fun startApp() {
         binding.btnPhoto.setOnClickListener {
             captureImage()
         }
 
         binding.btnSend.setOnClickListener {
+            val photoBox = binding.photo
             if (photoBox.drawable == null) {
                 Toast.makeText(this, "Take a photo first!", Toast.LENGTH_SHORT).show()
             }
