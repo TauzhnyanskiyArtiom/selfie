@@ -86,7 +86,6 @@ class MainActivity : AppCompatActivity() {
 
         intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("hodovychenko.labs@gmail.com"))
         intent.putExtra(Intent.EXTRA_SUBJECT, "КПП АИ-192 Таужняский А.В.")
-        intent.putExtra(Intent.EXTRA_TEXT, "Sending nudes")
         intent.putExtra(Intent.EXTRA_STREAM, photoURI)
         intent.type = "message/rfc822"
 
