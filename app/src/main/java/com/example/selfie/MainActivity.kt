@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.example.selfie.databinding.ActivityMainBinding
 import java.io.File
-import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -53,7 +52,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    @Throws(IOException::class)
     private fun getImageFile(): File {
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.UK).format(Date())
         val imageFileName = "JPEG_" + timeStamp + "_"
@@ -69,17 +67,14 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
         if (intent.resolveActivity(packageManager) != null) {
-            val imageFile: File? = getImageFile()
+            val imageFile: File = getImageFile()
+            val imageURI = FileProvider.getUriForFile(
+                this,
+                "com.example.android.fileprovider",
+                imageFile)
+            photoURI = imageURI
 
-            if (imageFile != null) {
-                val imageURI = FileProvider.getUriForFile(
-                    this,
-                    "com.example.android.fileprovider",
-                    imageFile)
-                photoURI = imageURI
-
-                cameraLauncher.launch(imageURI)
-            }
+            cameraLauncher.launch(imageURI)
         }
         else Toast.makeText(this, "No supported application", Toast.LENGTH_SHORT).show()
 
